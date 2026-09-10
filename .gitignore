@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Database (generated)
+data/store.db
+data/store.db-journal
+data/store.db-wal
+data/store.db-shm
+
+# Logs
+logs/
+
+# Environment
+.env
+.env.local
+
+# Uploaded images (runtime data)
+src/public/uploads/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

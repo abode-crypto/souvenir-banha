@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سوفينير بنها - Souvenir Banha</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- ========== شريط التنقل ========== -->
+  <div class="navbar">
+    <div class="logo">Souvenir <span>Banha</span></div>
+    <div class="nav-links">
+      <a id="linkHome">الرئيسية</a>
+      <a id="linkNew">الجديد</a>
+      <a id="linkCart">السلة<span class="cart-count" id="cartCount" style="margin-right:6px">0</span></a>
+      <span class="admin-buttons">
+        <span id="adminStatus" class="admin-status"></span>
+        <button id="loginBtn" class="admin-btn admin-login"><i class="fas fa-user-shield"></i> دخول الأدمن</button>
+        <button id="logoutBtn" class="admin-btn admin-logout" style="display:none;"><i class="fas fa-sign-out-alt"></i> خروج</button>
+        <button id="addProductBtn" class="admin-btn admin-login" style="display:none; background:#27ae60;"><i class="fas fa-plus"></i> إضافة</button>
+      </span>
+    </div>
+  </div>
+
+  <!-- ========== التخطيط الرئيسي ========== -->
+  <div class="main-layout">
+
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar-categories" id="categorySidebar">
+      <div class="sidebar-title">
+        <i class="fas fa-list-ul"></i> الفئات
+      </div>
+      <div id="categoryButtons"></div>
+    </aside>
+
+    <!-- منطقة المحتوى -->
+    <div class="content-area">
+
+      <!-- الصفحة الرئيسية -->
+      <div id="mainPage">
+        <div class="section-title">جميع المنتجات <small>استعراض الكتالوج كاملاً</small></div>
+        <div class="products-grid" id="productContainer"><div class="loading">جارٍ التحميل...</div></div>
+      </div>
+
+      <!-- صفحة الجديد -->
+      <div id="newPage">
+        <a class="back-btn" onclick="goHome()"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+        <div class="section-title">أحدث الإضافات <small>آخر المنتجات المضافة أولاً</small></div>
+        <div class="products-grid" id="newProductContainer"></div>
+      </div>
+
+      <!-- صفحة التفاصيل -->
+      <div id="detailPage">
+        <a class="back-btn" onclick="goHome()"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+        <div class="detail-wrapper">
+          <div class="detail-image"><img id="detailImg" src="" alt="صورة المنتج" /></div>
+          <div class="detail-info">
+            <h1 id="detailName">اسم المنتج</h1>
+            <div class="detail-specs" id="detailSpecs"></div>
+            <div class="detail-price-box">
+              <span class="detail-price" id="detailPrice">0.00 ج.م</span>
+              <span class="detail-old-price" id="detailOldPrice"></span>
+            </div>
+            <div class="detail-description" id="detailDesc">الوصف التفصيلي...</div>
+            <button class="add-to-cart-detail" id="detailAddBtn"><i class="fas fa-cart-plus"></i> أضف إلى السلة</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- صفحة السلة -->
+      <div id="cartPage">
+        <a class="back-btn" onclick="goHome()"><i class="fas fa-arrow-right"></i> متابعة التسوق</a>
+        <div class="section-title">سلة المشتريات</div>
+        <div id="cartContainer"></div>
+      </div>
+
+      <!-- صفحة النجاح -->
+      <div id="successPage">
+        <div class="success-box">
+          <div class="icon">✅</div>
+          <h1>تم استلام طلبك بنجاح!</h1>
+          <p id="successCustomer"></p>
+          <div class="order-number" id="successNumber"></div>
+          <p id="successTotal"></p>
+          <button class="btn-primary" style="width:auto; padding:12px 40px; margin-top:15px;" onclick="goHome()">
+            <i class="fas fa-home"></i> العودة للرئيسية
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== مودال الإضافة والتعديل ========== -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-box">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2 id="modalTitle">إضافة منتج جديد</h2>
+      <input type="hidden" id="editId" value="" />
+
+      <label>اسم المنتج</label>
+      <input type="text" id="fName" placeholder="مثل: بوكيه ورد مجفف" />
+
+      <label>الفئة</label>
+      <select id="fCategory"></select>
+
+      <label>المواصفات</label>
+      <input type="text" id="fSpecs" placeholder="مثل: ورد طبيعي · ارتفاع 30 سم" />
+
+      <label>السعر (ج.م)</label>
+      <input type="number" id="fPrice" placeholder="89.00" step="0.01" />
+
+      <label>السعر القديم (ج.م - اختياري)</label>
+      <input type="number" id="fOldPrice" placeholder="145.00" step="0.01" />
+
+      <label>صورة المنتج (ارفع من جهازك)</label>
+      <div class="file-upload-wrapper"><input type="file" id="fImg" accept="image/*" /></div>
+      <div class="image-preview-container"><img id="imagePreview" src="#" alt="معاينة الصورة" style="display:none;" /></div>
+
+      <label>الوصف التفصيلي</label>
+      <textarea id="fDesc" placeholder="اكتب وصفاً مفصلاً للمنتج..."></textarea>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
+        <button class="btn-save" id="saveProductBtn">حفظ المنتج</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- التوست -->
+  <div class="toast-container"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/app.js"></script>
+
+</body>
+</html>
