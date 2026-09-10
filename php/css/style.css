@@ -1,0 +1,1160 @@
+/* ========================================================== */
+/*  Souvenir Banha - التصميم الأساسي                           */
+/* ========================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #f7f7f8;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---------- شريط التنقل ---------- */
+.navbar {
+  background: white;
+  padding: 15px 30px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #222;
+}
+
+.logo span {
+  color: #ff3b6f;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  font-weight: 500;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.nav-links a:hover {
+  color: #ff3b6f;
+}
+
+.nav-links a.active-link {
+  color: #ff3b6f;
+  font-weight: 700;
+}
+
+.admin-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 13px;
+  transition: 0.2s;
+  font-family: inherit;
+}
+
+.admin-login {
+  background: #222;
+  color: white;
+}
+
+.admin-login:hover {
+  background: #ff3b6f;
+}
+
+.admin-logout {
+  background: #fee;
+  color: #c62828;
+}
+
+.admin-logout:hover {
+  background: #c62828;
+  color: white;
+}
+
+.admin-status {
+  font-size: 13px;
+  color: #27ae60;
+  font-weight: 600;
+}
+
+/* cart button */
+.cart-btn {
+  background: #ff3b6f;
+  color: white;
+  text-decoration: none;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 13px;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.cart-btn:hover {
+  background: #e02e5a;
+}
+
+.cart-count {
+  background: #222;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cart-count.visible {
+  display: inline-flex;
+}
+
+/* ---------- التخطيط الرئيسي ---------- */
+.main-layout {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+/* القائمة الجانبية العمودية */
+.sidebar-categories {
+  flex: 0 0 220px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.sidebar-categories .sidebar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #222;
+  padding: 0 20px 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-categories .sidebar-title i {
+  color: #ff3b6f;
+  font-size: 18px;
+}
+
+.category-btn-vertical {
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: #555;
+  transition: 0.2s;
+  border-right: 3px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.category-btn-vertical:hover {
+  background: #f7f7f8;
+  color: #222;
+}
+
+.category-btn-vertical.active-cat {
+  background: #fce8ed;
+  color: #ff3b6f;
+  border-right-color: #ff3b6f;
+  font-weight: 600;
+}
+
+.category-btn-vertical i {
+  margin-left: 12px;
+  width: 20px;
+  text-align: center;
+  color: #888;
+}
+
+.category-btn-vertical.active-cat i {
+  color: #ff3b6f;
+}
+
+/* منطقة المحتوى */
+.content-area {
+  flex: 1;
+  min-width: 0;
+}
+
+#mainPage,
+#newPage,
+#detailPage,
+#cartPage,
+#successPage {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+#mainPage.active-page,
+#newPage.active-page,
+#detailPage.active-page,
+#cartPage.active-page,
+#successPage.active-page {
+  display: block;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #1a1a1a;
+}
+
+.section-title small {
+  font-size: 16px;
+  font-weight: 400;
+  color: #888;
+  margin-right: 10px;
+}
+
+/* شبكة المنتجات */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 25px;
+}
+
+.product-card {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.product-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  background: #f0f0f0;
+}
+
+.product-info {
+  padding: 16px 14px 18px;
+}
+
+.product-category-tag {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #888;
+  font-size: 11px;
+  padding: 2px 12px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.product-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-specs {
+  font-size: 13px;
+  color: #777;
+  margin: 4px 0 8px;
+}
+
+.product-specs i {
+  margin-left: 4px;
+  color: #aaa;
+}
+
+.price-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.product-price {
+  font-size: 19px;
+  font-weight: 700;
+  color: #ff3b6f;
+}
+
+.product-price .old-price {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+  font-weight: 400;
+  margin-right: 8px;
+}
+
+/* أزرار الأدمن على البطاقة */
+.admin-actions {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  gap: 6px;
+  z-index: 20;
+}
+
+.admin-actions.show {
+  display: flex;
+}
+
+.admin-action-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.admin-action-btn.edit-btn {
+  color: #2c3e50;
+}
+
+.admin-action-btn.edit-btn:hover {
+  background: #2c3e50;
+  color: white;
+}
+
+.admin-action-btn.delete-btn {
+  color: #e74c3c;
+}
+
+.admin-action-btn.delete-btn:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+/* زر الإضافة للسلة (على البطاقة) */
+.cart-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #ff3b6f;
+  color: white;
+  box-shadow: 0 2px 8px rgba(255, 59, 111, 0.3);
+  font-size: 15px;
+  transition: 0.2s;
+  cursor: pointer;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 20;
+}
+
+.cart-action-btn:hover {
+  background: #e02e5a;
+  transform: scale(1.1);
+}
+
+/* ---------- صفحة التفاصيل ---------- */
+#detailPage {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  margin-top: 10px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.2s;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.back-btn:hover {
+  color: #ff3b6f;
+}
+
+.detail-wrapper {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.detail-image {
+  flex: 1 1 40%;
+  min-width: 280px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  max-height: 550px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #f2f2f2;
+}
+
+.detail-info {
+  flex: 1 1 50%;
+  min-width: 280px;
+}
+
+.detail-info h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.detail-specs {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.detail-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.detail-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ff3b6f;
+}
+
+.detail-old-price {
+  font-size: 20px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.detail-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #444;
+  margin: 20px 0;
+  background: #f9f9f9;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.add-to-cart-detail {
+  background: #ff3b6f;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.add-to-cart-detail:hover {
+  background: #e02e5a;
+  transform: scale(1.02);
+}
+
+/* ---------- صفحة السلة ---------- */
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 25px;
+  align-items: start;
+}
+
+.cart-items-box {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-item-row:last-child {
+  border-bottom: none;
+}
+
+.cart-item-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #f0f0f0;
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-price {
+  font-size: 14px;
+  color: #ff3b6f;
+  font-weight: 700;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.qty-btn:hover {
+  border-color: #ff3b6f;
+  color: #ff3b6f;
+}
+
+.qty-num {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.remove-item-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 4px;
+}
+
+.remove-item-btn:hover {
+  color: #e74c3c;
+}
+
+.cart-summary-box {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.cart-summary-box h3 {
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: #1a1a1a;
+}
+
+.summary-rows {
+  border-top: 1px solid #f0f0f0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  margin-top: 8px;
+  border-top: 2px solid #f0f0f0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.btn-primary {
+  background: #ff3b6f;
+  color: white;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-block;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background: #e02e5a;
+}
+
+.btn-outline {
+  background: none;
+  color: #555;
+  border: 1px solid #ddd;
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-block;
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.btn-outline:hover {
+  border-color: #ff3b6f;
+  color: #ff3b6f;
+}
+
+/* ---------- صفحة إتمام الطلب (مدمجة مع السلة) ---------- */
+.checkout-form {
+  margin-top: 20px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 20px;
+}
+
+.checkout-form h4 {
+  margin-bottom: 15px;
+  color: #1a1a1a;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: 0.2s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ff3b6f;
+  box-shadow: 0 0 0 3px rgba(255, 59, 111, 0.1);
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #e74c3c;
+}
+
+/* ---------- صفحة النجاح ---------- */
+.success-box {
+  text-align: center;
+  background: white;
+  border-radius: 24px;
+  padding: 60px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.success-box .icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.success-box h1 {
+  color: #27ae60;
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.success-box p {
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.success-box .order-number {
+  font-size: 17px;
+  color: #1a1a1a;
+  margin: 18px 0;
+  font-weight: 600;
+}
+
+/* ---------- مودال الإضافة والتعديل ---------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 24px;
+  padding: 35px;
+  max-width: 550px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+  position: relative;
+}
+
+.modal-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.modal-box label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.modal-box input,
+.modal-box textarea,
+.modal-box select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: 0.2s;
+  font-family: inherit;
+  background: white;
+  color: #333;
+}
+
+.modal-box input:focus,
+.modal-box textarea:focus,
+.modal-box select:focus {
+  outline: none;
+  border-color: #ff3b6f;
+  box-shadow: 0 0 0 3px rgba(255, 59, 111, 0.1);
+}
+
+.modal-box textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.file-upload-wrapper {
+  margin-top: 6px;
+}
+
+.file-upload-wrapper input[type="file"] {
+  padding: 8px;
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  background: #fafafa;
+  cursor: pointer;
+  width: 100%;
+}
+
+.file-upload-wrapper input[type="file"]:hover {
+  border-color: #ff3b6f;
+}
+
+.image-preview-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#imagePreview {
+  max-width: 100%;
+  max-height: 180px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  object-fit: contain;
+  background: #f9f9f9;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.modal-actions .btn-save {
+  background: #ff3b6f;
+  color: white;
+}
+
+.modal-actions .btn-save:hover {
+  background: #e02e5a;
+}
+
+.modal-actions .btn-cancel {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.modal-actions .btn-cancel:hover {
+  background: #ddd;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #aaa;
+  background: none;
+  border: none;
+}
+
+.close-modal:hover {
+  color: #222;
+}
+
+/* ---------- توست ---------- */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: #222;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: toastIn 0.3s ease;
+  max-width: 320px;
+  font-size: 14px;
+}
+
+.toast.success {
+  background: #27ae60;
+}
+
+.toast.error {
+  background: #e74c3c;
+}
+
+.toast.hide {
+  animation: toastOut 0.3s ease forwards;
+}
+
+@keyframes toastIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(20px); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- حالة فارغة ---------- */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.empty-state .icon {
+  font-size: 56px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  color: #888;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
+/* ========================================================== */
+/*  استجابة للجوال                                             */
+/* ========================================================== */
+@media (max-width: 992px) {
+  .sidebar-categories {
+    flex: 0 0 160px;
+  }
+  .category-btn-vertical {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+  .main-layout {
+    gap: 12px;
+  }
+  .sidebar-categories {
+    flex: 0 0 130px;
+    padding: 12px 0;
+    border-radius: 12px;
+    max-height: calc(100vh - 80px);
+    top: 10px;
+  }
+  .sidebar-categories .sidebar-title {
+    font-size: 13px;
+    padding: 0 12px 10px 12px;
+    gap: 6px;
+  }
+  .sidebar-categories .sidebar-title i {
+    font-size: 14px;
+  }
+  .category-btn-vertical {
+    padding: 8px 12px;
+    font-size: 12px;
+    border-right-width: 2px;
+  }
+  .category-btn-vertical i {
+    margin-left: 8px;
+    width: 16px;
+    font-size: 13px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .product-img {
+    height: 180px;
+  }
+  #detailPage {
+    padding: 16px;
+  }
+  .detail-wrapper {
+    flex-direction: column;
+  }
+  .detail-info h1 {
+    font-size: 22px;
+  }
+  .modal-box {
+    padding: 20px;
+  }
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav-links {
+    justify-content: center;
+    gap: 12px;
+  }
+  .admin-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-categories {
+    flex: 0 0 100px;
+    padding: 8px 0;
+  }
+  .sidebar-categories .sidebar-title {
+    font-size: 11px;
+    padding: 0 8px 8px 8px;
+  }
+  .sidebar-categories .sidebar-title i {
+    display: none;
+  }
+  .category-btn-vertical {
+    padding: 6px 8px;
+    font-size: 10px;
+    text-align: center;
+  }
+  .category-btn-vertical i {
+    display: none;
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .product-img {
+    height: 130px;
+  }
+  .product-name {
+    font-size: 12px;
+  }
+  .product-price {
+    font-size: 14px;
+  }
+  .section-title {
+    font-size: 20px;
+  }
+  .section-title small {
+    font-size: 12px;
+  }
+  .navbar {
+    padding: 12px 16px;
+  }
+}

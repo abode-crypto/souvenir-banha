@@ -16,6 +16,8 @@ logs/
 
 # Uploaded images (runtime data)
 src/public/uploads/
+php/uploads/*
+!php/uploads/.htaccess
 
 # OS
 .DS_Store
